@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Arbitragem do Velho Oeste </title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="top">
+    <div style="display:flex; flex-direction:column;">
+        <h1>Arbitragem do Velho Oeste</h1>
+    </div>
+    <div class="date-display" id="dateDisplay">Janeiro, 1899</div>
+</div>
+
+<div class="container">
+    <div class="sidebar">
+        <div class="card">
+            <h3>👤 O Forasteiro</h3>
+            <div class="stat"><span>Saldo:</span><strong id="dinheiro" style="color:#2e7d32">$1000.00</strong></div>
+            <div class="stat"><span>Local:</span><span id="localAtual">-</span></div>
+            <div class="stat"><span>Acampamento base:</span><span id="baseJogador">-</span></div>
+            <div class="stat"><span>Lucro (Rotas):</span><strong id="lucroTotal">$0.00</strong></div>
+        </div>
+
+        <div class="card">
+            <h3>💾Salvar ou Carregar Jogo Anterior</h3>
+            <div style="display: flex; gap: 5px;">
+                <button class="btn btn-info" id="btnSalvarDB" style="flex:1; font-size:0.9rem;">Salvar</button>
+                <button class="btn btn-info" id="btnCarregarDB" style="flex:1; font-size:0.9rem;">Carregar</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>🐎 Viagem Rápida</h3>
+            <label class="small">Destino:</label>
+            <select id="selectDestino"></select>
+            <button class="btn" id="btnTraçar">Marcar Mapa</button>
+            <button class="btn btn-primary" id="btnIr" disabled>Viajar</button>
+        </div>
+
+        <div class="card">
+            <h3>💰Rota do Informante</h3>
+            <div class="small">Planejar rota automática.</div>
+            <div style="height:10px"></div>
+            <button class="btn btn-primary" id="btnAnalisar">🔍 Analisar Ofertas (-$<span id ="CustoAtual">100</span>)</button>
+            <button class="btn btn-danger" id="btnExecutar" disabled>🚀 Iniciar Rota</button>
+            <hr style="margin:10px 0;border:0;border-top:1px dashed var(--text-dark)">
+            <div id="detalhesRota" class="small" style="font-style:italic">Nenhum plano traçado.</div>
+        </div>
+
+        <div class="card">
+            <h3>🎒 Mochila (<span id="pesoAtual">0</span>/<span id="pesoMax">50</span>)</h3>
+            <div id="inventarioDiv" class="small" style="margin-bottom: 8px;">Vazio</div>
+            <button class="btn" id="btnUpgradeBag" style="width:100%; font-size: 0.8rem;">➕ Expandir Mochila (-$<span id ="Mochila">1000</span>)</button>
+        </div>
+
+        <div class="card">
+            <h3>🏪 Armazém Local</h3>
+            <button class="btn btn-info" id="btnPanorama" style="width:100%; margin-bottom:10px;">📜 Jornal de Preços</button>
+            
+            <div style="border-top:1px dashed var(--text-dark); padding-top:8px;">
+                <h4 style="font-size:0.9rem; margin-bottom:5px; color:var(--border-brown)">Preços em <span id="tituloMercado">-</span></h4>
+                <table><thead><tr><th>Item</th><th>$</th><th>#</th><th>Ação</th></tr></thead><tbody id="tbodyMercado"></tbody></table>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top:auto">
+            <button class="btn" id="btnNovoMapa" style="width:100%">🗺️ Novo Mundo</button>
+            <div style="height:8px"></div>
+            <button class="btn" id="btnIrBase" style="width:100%">⛺ Voltar p/ Acampamento (-$100)</button>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="legend">
+            <div class="leg-item"><div style="width:14px;height:14px;background:#e67e22;border:2px solid #fff;border-radius:50%;box-shadow:0 0 5px #000"></div><span>Você</span></div>
+            <div class="leg-item"><div style="width:25px;height:6px;background:#c62828;border:1px solid #5d1010;border-radius:4px"></div><span>Comércio</span></div>
+            <div class="leg-item"><div style="width:25px;height:6px;background:#1565c0;border:1px solid #0d47a1;border-radius:4px"></div><span>GPS</span></div>
+            <div class="leg-item"><div style="width:25px;height:4px;background:#6d4c41;border-top:2px solid #8d6e63"></div><span>Trilhas</span></div>
+        </div>
+        <canvas id="mapCanvas"></canvas>
+    </div>
+</div>
+
+<div id="status" class="status"></div>
+<div id="modalPanorama" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>📜 Jornal: Preços de Mercado</h2>
+            <button class="close-btn" onclick="fecharPanorama()">×</button>
+        </div>
+        <div class="modal-body">
+            <div id="tabelaPanoramaContainer"></div>
+            <div class="analysis-box">
+                <div style="font-weight:bold; margin-bottom:10px; border-bottom:1px solid var(--text-dark); padding-bottom:5px;">⚡ Melhores Oportunidades</div>
+                <div id="analiseRapidaContent"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="module" src="main.js"></script>
+</body>
+</html>
